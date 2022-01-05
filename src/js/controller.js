@@ -219,7 +219,89 @@ type git status
 to commit all, retype git add -A 
 --- now all green bars are gone
 
+committing the files
+--- git add -A is a pre-set before the commit === staging
+--- commit: taking snapshot of your code at a certain point in time
+------ do it before you make significant changes to your code
+--- type git commit -m "Initial commit"
+------ -m === message
+------ "Initial commit" === typical message for 1st commit
+------ after that you can just adjust, e.g., "new search algorithm"
+--- notice jonas use 'apostrophe' , but because you use windows, always use "quotemarks"
+--- after this, letter status(A) beside filenames are gone, not M though
+
+double-check status
+--- after above, if nothing is modified and you type git status, it'll says nothing to commit,working tree clean
+
+To summarised the steps:
+git init
+git add -A
+git commit -m 'whatever messages'
+
+Side orders:
+git status
 */
+
+/*
+When you modified but it's resulted in bugs
+--- to simulate, type console.log(BUG) ,thats not a var so will be resulted in an error
+--- type git reset --hard HEAD
+------ notice this will delete NOT only a single line but TAKES U BACK TO PREVIOUS commit.
+--- console.log(BUG) is gone now, letter status has gone
+--- but you're still typing here so back to M/modified again 😅
+
+Say your error is placed on the few previous commits, and wanna go back to that few previous commit (hopping the last commit)
+--- first take a look at commit log
+------ type git log
+------ will show previous, :...skipping... then from newest to oldest INCLUDING --hard HEAD
+commit 528450c86ebf6e6b7d62a03785be5af4d7ef4999 (HEAD -> master) << notice last commit shown first
+Author: revcatnat <revnathalia@gmail.com>
+Date: Wed Jan 5 09:51:54 2022 +0000
+second
+
+        :...skipping...
+        commit 528450c86ebf6e6b7d62a03785be5af4d7ef4999 (HEAD -> master) << same like below
+        commit 528450c86ebf6e6b7d62a03785be5af4d7ef4999 (HEAD -> master) << notice first hard head, deleting console.log(BUG)
+        commit 528450c86ebf6e6b7d62a03785be5af4d7ef4999 (HEAD -> master) << notice second commit
+        Author: revcatnat <revnathalia@gmail.com>
+        Date:   Wed Jan 5 09:51:54 2022 +0000
+
+            second
+
+        commit deec4878f3aeed1ef691e8298af6c657350da42c   << notice oldest, first commit, look at the id
+        Author: revcatnat <revnathalia@gmail.com>
+        Date:   Wed Jan 5 09:44:12 2022 +0000
+
+            Initial commit
+
+--- in this case wanting to go back to Initial commit, hence skipping second
+------ first type q to quit the log
+------ then type git reset hard commitIdThatYouWannaGoBackTo
+------ Initial commit, so type git reset --hard deec4878f3aeed1ef691e8298af6c657350da42c
+--- success message: HEAD is now at deec487 Initial commit
+--- now your notes is shorter, only until ln.220 because thats the point of Initial commit
+
+Moving between commit is dangerous, so when u plan a lot of changes, create a new branch 
+--- type  git branch  ,see the list of branch that we currently have
+------   * master   ,at this point only 1 branch which is the master
+--- create a new branch===copy of the master code, we can add into it without affecting the master branch
+--- perfect if your old code working just fine, but you want to add, so if bug happens, can go back to working code
+------ type   git branch whatever-branch-name
+------ i did git branch new-feature
+--- move to the new branch, currently you've created a new one but you're still in master
+------ type git checkout branchNameYouWannaGoTo
+------ i did   git checkout new-feature
+------ success message    Switched to branch 'new-feature'     
+                          M       src/js/controller.js        <<this is because you keep typing on controller.js
+------ notes orange/red bar means somethings been deleted, if you click on it, red highlight:deleted, green:new addition
+--- now add simple random function below
+--- now do git add and git commit again
+------ those additions are now in new-feature branch but not in master
+*/
+
+const newFeature = function () {
+  console.log('new feature');
+};
 
 const controlRecipes = async function () {
   try {
