@@ -288,6 +288,7 @@ Moving between commit is dangerous, so when u plan a lot of changes, create a ne
 --- perfect if your old code working just fine, but you want to add, so if bug happens, can go back to working code
 ------ type   git branch whatever-branch-name
 ------ i did git branch new-feature
+--- type git branch, now you see two, master and new-feature, green font with asterisk is the one you're currently in
 --- move to the new branch, currently you've created a new one but you're still in master
 ------ type git checkout branchNameYouWannaGoTo
 ------ i did   git checkout new-feature
@@ -297,6 +298,12 @@ Moving between commit is dangerous, so when u plan a lot of changes, create a ne
 --- now add simple random function below
 --- now do git add and git commit again
 ------ those additions are now in new-feature branch but not in master
+
+switch back to master to integrate changes in new-feature to our original/main code base
+--- say you successfully add new algor to the new branch and now wanna copy to the original one
+--- first, move back to master, remember you're still in new-feature branch
+------ git checkout master
+------ err : Please commit your changes or stash them before you switch branches ,bcos u keep typing on controller.js😑
 */
 
 const newFeature = function () {
